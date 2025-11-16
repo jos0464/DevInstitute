@@ -9,26 +9,16 @@ class Farm:
         self.name = farm_name
         self.animals = {}  # dictionnaire : clé = type d'animal, valeur = quantité
 
-    # Méthode pour ajouter un animal ou plusieurs animaux
-    def add_animal(self, animal_type=None, count=1, **kwargs):
+    # Méthode pour ajouter un animal
+    def add_animal(self, animal_type, count=1):
         """
-        Ajoute un ou plusieurs animaux à la ferme.
-        - animal_type et count permettent d'ajouter un animal simple
-        - kwargs permet d'ajouter plusieurs animaux : animal=quantité
+        Ajoute un animal à la ferme.
+        Si l'animal existe déjà, on incrémente son nombre.
         """
-        # Ajouter un animal simple
-        if animal_type:
-            if animal_type in self.animals:
-                self.animals[animal_type] += count
-            else:
-                self.animals[animal_type] = count
-
-        # Ajouter plusieurs animaux via kwargs
-        for key, value in kwargs.items():
-            if key in self.animals:
-                self.animals[key] += value
-            else:
-                self.animals[key] = value
+        if animal_type in self.animals:
+            self.animals[animal_type] += count
+        else:
+            self.animals[animal_type] = count
 
     # Méthode pour afficher les informations complètes de la ferme
     def get_info(self):
@@ -78,7 +68,7 @@ class Farm:
 # Création de la ferme
 macdonald = Farm("McDonald")
 
-# Ajouter des animaux
+# Ajouter des animaux un par un
 macdonald.add_animal('cow', 5)
 macdonald.add_animal('sheep')
 macdonald.add_animal('sheep')
@@ -89,10 +79,4 @@ print(macdonald.get_info())
 
 print("\n--- Short info ---")
 # Afficher le résumé court
-print(macdonald.get_short_info())
-
-print("\n--- Utilisation de kwargs ---")
-# Ajouter plusieurs animaux en même temps via kwargs
-macdonald.add_animal(chicken=6, pig=3)
-print(macdonald.get_info())
 print(macdonald.get_short_info())
